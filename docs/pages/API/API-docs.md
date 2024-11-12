@@ -31,7 +31,7 @@ curl -H "Content-Type: application/json; charset=utf-8"
 | question | string | The user's question. | Required                   |
 | history | string | The conversation history. | Optional               |
 | api_key | string | The API key for the selected LLM model. | Optional |
-| embeddings_key | string | The API key for embeddings. If using OpenaAI, use the api_key value.  | Optional       |
+| embeddings_key | string | The API key for embeddings. If using OpenaAI, use the api_key value. | Optional |
 | active_docs | string | The ID of the active documentation. | Optional |
 
 **Sample Request**:
@@ -41,7 +41,7 @@ curl --location 'http://localhost:7091/api/answer' \
 --header 'Content-Type: application/json; charset=utf-8' \
 --data '{
     "question": "Hi",
-    "active_docs": "670d9cc211b0b55a9b68d9c3"
+    "active_docs": "67088ee3d14d6f75727f218c"
 }'
 ```
 
@@ -101,7 +101,7 @@ curl --location 'http://localhost:7091/api/docs_check' \
 }
 ```
 
-## `GET` 3. /api/combine
+## 3. `GET` /api/combine
 
 Retrieves information about available vector databases.
 
@@ -144,16 +144,16 @@ curl --location 'http://localhost:7091/api/combine'
 ]
 ```
 
-| Key | Data Type | Description | Use       |
-|-----|-----------|-------------|-----------|
-| date | string | When the document was uploaded. | Required |
-| id | string | The identifier for the uploaded document. | Optional |
-| location | string | Where the document is stored. | Required |
+| Key | Data Type | Description | Use                                        |
+|-----|-----------|-------------|--------------------------------------------|
+| date | string | When the document was uploaded. | Required                 |
+| id | string | The ID of the uploaded document. | Optional         |
+| location | string | Where the document is stored. | Required               |
 | model | string | The LLM model used for training the document. |  Required |
-| name | string | The name of the document. | Required |
+| name | string | The name of the document. | Required                       |
 | retriever | string | The retriever used to return the document. | Required |
 | syncFrequency | string | How often the document is synced with the origin. Can be never, daily, weekly, monthly, or null. | Optional |
-| tokens | string | Number of tokens used by the document. | Required |
+| tokens | string | Number of tokens used by the document. | Required        |
 
 The JSON response values can also be viewed on [DocsHUB](https://github.com/arc53/DocsHUB), if the documentation is stored there.
 
@@ -161,13 +161,13 @@ The JSON response values can also be viewed on [DocsHUB](https://github.com/arc5
 
 On DocsHub, additional metadata fields include:
 
-| Key | Data Type | Description | Use       |
-|-----|-----------|-------------|-----------|
+| Key | Data Type | Description | Use                                         |
+|-----|-----------|-------------|---------------------------------------------|
 | description | string | A description of the document's contents. | Required |
-| docLink | string | The path to the document. | Optional |
-| fullName | string | The document's full name. | Required |
-| language | string | The coding language used in the document. |  Required |
-| version | string | The document version. | Optional |
+| docLink | string | The path to the document. | Optional                     |
+| fullName | string | The document's full name. | Required                    |
+| language | string | The coding language used in the document. |  Required   |
+| version | string | The document version. | Optional                         |
 
 ## 4. `POST` /api/upload
 
@@ -197,10 +197,10 @@ curl --location 'http://localhost:7091/api/upload' \
 }
 ```
 
-| Key | Data Type | Description | Use |
-|-----|-----------|-------------|-----|
-| success | boolean | Indicates whether the upload was successful.  | Required |
-| task_id | string | The string identifier for the uploaded document. | Required |
+| Key | Data Type | Description | Use                                            |
+|-----|-----------|-------------|------------------------------------------------|
+| success | boolean | Indicates whether the upload was successful. | Required    |
+| task_id | string | The ID of the uploaded document. | Required                 |
 
 ## 5. `GET` /api/task_status
 
@@ -210,7 +210,7 @@ Returns the status of a file upload with designated `task_id` from `/api/upload`
 
 | Key | Data Type | Description | Use |
 |-----|-----------|-------------|-----|
-| task_id | string | Identifier for a task. | Required |
+| task_id | string | The ID of the task. | Required |
 
 **Sample Request:**
 ```curl
@@ -275,8 +275,8 @@ Deletes old indexes.
 
 **Query Parameter**:
 
-| Key | Data Type | Description | Use |
-|-----|-----------|-------------|-----------|
+| Key | Data Type | Description | Use                                          |
+|-----|-----------|-------------|----------------------------------------------|
 | source_id | string | The source ID of the document to be deleted. | Required |
 
 **Sample Request:**
@@ -308,7 +308,7 @@ curl --location 'http://localhost:7091/api/get_api_keys'
   {
     "chunks": "2",
     "id": "670f41429e396d5266b1fea8",
-    "key": "1f42...2f3e",
+    "key": "API-KEY-1",
     "name": "API-docs",
     "prompt_id": "default",
     "source": "API-docs"
@@ -316,7 +316,7 @@ curl --location 'http://localhost:7091/api/get_api_keys'
   {
     "chunks": "2",
     "id": "670f424d2ad68e881af5258b",
-    "key": "009f...34c3",
+    "key": "API-KEY-1",
     "name": "DuckDuckGo Search",
     "prompt_id": "default",
     "source": "default"
@@ -324,12 +324,12 @@ curl --location 'http://localhost:7091/api/get_api_keys'
 ]
 ```
 
-| Key | Data Type | Description | Use |
-|-----|-----------|-------------|-----------|
-| chunks | string | The number of chunks used to process an answer. | Required |
-| id | string | The string ID of the API key. | Required |
-| key | string | The API key. | Required |
-| name | string | The name of the API key. | Required |
+| Key | Data Type | Description | Use                                            |
+|-----|-----------|-------------|------------------------------------------------|
+| chunks | string | The number of chunks used to process an answer. | Required   |
+| id | string | The string ID of the API key. | Required                         |
+| key | string | The API key. | Required                                         |
+| name | string | The name of the API key. | Required                            |
 | prompt_id | string | The prompt used to generate the API key. Values can be default, strict, or creative. | Required |
 | source | string | The source document used to generate the API key. | Required |
 
@@ -354,11 +354,11 @@ curl -H "Content-Type: application/json; charset=utf-8"
 }
 ```
 
-| Key | Data Type | Description | Use |
-|-----|-----------|-------------|-----------|
-| name | string | The user-designated name for the API key. | Required |
+| Key | Data Type | Description | Use                                            |
+|-----|-----------|-------------|------------------------------------------------|
+| name | string | The user-designated name for the API key. | Required           |
 | prompt_id | string | The prompt used to generate the API key. Values can be default, strict, ore creative. | Required |
-| chunks | string | The number of chunks used to process an answer. | Required |
+| chunks | string | The number of chunks used to process an answer. | Required   |
 | source | string | The source document used to generate the API key. | Required |
 
 **Sample Request**:
@@ -379,7 +379,7 @@ curl --location 'http://localhost:7091/api/create_api_key' \
 ```json
 {
   "id": "670f46162ad68e881af5258e",
-  "key": "0a4abcf5-1b85-4f35-b57e-8ad8c7a972ae"
+  "key": "YOUR-API-KEY"
 }
 ```
 
@@ -397,13 +397,13 @@ curl -H "Content-Type: application/json; charset=utf-8"
 
 ```json
 {
- "id": "API_KEY_ID"
+ "id": "YOUR-API-KEY"
 }
 ```
 
-| Key | Data Type | Description | Use |
-|-----|-----------|-------------|-----------|
-| id | string | The string identifier of the API key to be deleted | Required |
+| Key | Data Type | Description | Use                          |
+|-----|-----------|-------------|------------------------------|
+| id | string | The ID of the API key to be deleted | Required |
 
 **Sample Request**:
 
@@ -458,9 +458,9 @@ Deletes a conversation with the specified ID.
 
 **Query Parameter**:
 
-| Key | Data Type | Description | Use |
-|-----|-----------|-------------|-----|
-| id | string | Identifier for the conversation to be deleted. | Required |
+| Key | Data Type | Description | Use                            |
+|-----|-----------|-------------|--------------------------------|
+| id | string | ID of the conversation to be deleted. | Required |
 
 **Sample Request**
 
@@ -497,9 +497,9 @@ Streams the LLM's response to a user's question based on the specified retriever
 
 | Key | Data Type | Description | Use |
 |-----|-----------|-------------|-----------|
-| active_docs | string | The ID of the documentation used to generate the answer. | Required |
+| active_docs | string | The ID of the documentation used to generate the answer. | Optional |
 | chunks | string | The number of chunks used to process an answer. | Required |
-| conversation_id | string | The ID of the conversation. | Required |
+| conversation_id | string | The ID of the conversation. | Optional |
 | history | string | The conversation history. | Optional |
 | isNoneDoc | Boolean | Flag indicating if no document is selected. | Optional |
 | prompt_id | string | The prompt type used to generate responses. Values can be default, strict, or creative. | Optional |
